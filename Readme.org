@@ -1,10 +1,120 @@
-#+author: conao
-#+date: <2018-12-12 Wed>
+#+title: lambda-helper.clj
+#+author: conao3
+
+* lambda-helper.clj
+
+A Clojure helper library for AWS Lambda that generates dynamic SVG and PNG images for GitHub repository headers.
 
 [[https://github.com/conao3/lambda-clojure][https://img.shields.io/github/tag/conao3/lambda-clojure.svg?style=flat-square]]
-[[https://travis-ci.org/conao3/lambda-clojure][https://img.shields.io/travis/conao3/lambda-clojure/master.svg?style=flat-square]]
 [[https://github.com/conao3/lambda-clojure][https://img.shields.io/github/license/conao3/lambda-clojure.svg?style=flat-square]]
-[[https://github.com/conao3/github-header][https://ss8b6objx1.execute-api.us-east-1.amazonaws.com/dev/header/docker.svg]]
 
-* What is it?
-Conao's helper working on AWS Lambda.
+** Overview
+
+lambda-helper.clj provides a serverless solution for generating customizable repository header images on the fly. Deploy to AWS Lambda and integrate with API Gateway to serve dynamic SVG and PNG images for your GitHub projects.
+
+** Features
+
+- Dynamic SVG and PNG header generation with customizable text, colors, and styling
+- Serverless deployment to AWS Lambda via API Gateway
+- Built on Ring and Compojure for familiar HTTP handling
+- Uses Dali and Batik for high-quality image rendering
+
+** Requirements
+
+- Leiningen 2.0 or later
+- AWS account with Lambda and API Gateway configured
+- JDK 8 or later
+
+** Installation
+
+Clone the repository and install dependencies:
+
+#+begin_src bash
+git clone https://github.com/conao3/lambda-clojure.git
+cd lambda-clojure
+lein deps
+#+end_src
+
+** Usage
+
+*** Local Development
+
+Start a local development server:
+
+#+begin_src bash
+lein ring server
+#+end_src
+
+*** API Endpoints
+
+**** Header Generation
+
+Generate an SVG header:
+
+#+begin_src
+GET /header/:text.svg
+#+end_src
+
+Generate a PNG header:
+
+#+begin_src
+GET /header/:text.png
+#+end_src
+
+Optional query parameters:
+
+| Parameter    | Description           | Default |
+|--------------+-----------------------+---------|
+| =forground=  | Text color (hex)      | FFF     |
+| =background= | Background color (hex)| 222     |
+
+**** Hello Endpoints (Demo)
+
+| Endpoint          | Description                  |
+|-------------------+------------------------------|
+| =GET /hello=      | Returns a hello message      |
+| =GET /hello/fn=   | Returns function info        |
+| =GET /hello/html= | Returns HTML content         |
+| =GET /hello/svg=  | Returns sample SVG           |
+| =GET /hello/png=  | Returns sample PNG           |
+
+*** Deployment to AWS Lambda
+
+Build and deploy to AWS Lambda:
+
+#+begin_src bash
+lein lambda deploy dev
+#+end_src
+
+For production:
+
+#+begin_src bash
+lein lambda deploy stable
+#+end_src
+
+** Project Structure
+
+#+begin_src
+src/conao3/lambda_clojure/
+  core.clj      # Header generation logic
+  handler.clj   # Route definitions and middleware
+  hello.clj     # Demo endpoints
+  lambda.clj    # Lambda handler entry point
+#+end_src
+
+** Dependencies
+
+| Library               | Purpose                          |
+|-----------------------+----------------------------------|
+| Compojure             | HTTP routing                     |
+| Ring                  | HTTP abstraction layer           |
+| Lambada               | AWS Lambda integration           |
+| Dali                  | SVG generation                   |
+| Batik                 | SVG to PNG conversion            |
+| Cheshire              | JSON processing                  |
+| ring-apigw-lambda-proxy | API Gateway Lambda proxy support |
+| Etaoin                | Browser automation               |
+
+** License
+
+This project is licensed under the GNU Affero General Public License v3.0. See the [[file:LICENSE][LICENSE]] file for details.
