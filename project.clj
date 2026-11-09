@@ -7,7 +7,7 @@
                  [ring/ring-defaults "0.7.1"]
                  [ring/ring-json "0.5.1"]
                  [uswitch/lambada "0.1.2"]
-                 [cheshire "6.2.0"]
+                 [cheshire "6.2.1"]
                  [ring-apigw-lambda-proxy "0.4.0"]
                  [dali "1.0.2"]
                  [etaoin "1.1.43"]]
